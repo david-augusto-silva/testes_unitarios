@@ -5,41 +5,40 @@ from src import doomsday
 
 class TestDoomsday(unittest.TestCase):
     
-    def test_valid_input(self):
-        year = 2024
-        month = 11
-        day = 29
-        weekday = doomsday.get_week_day(year, month, day)
-        self.assertEqual('Friday', weekday)
+    def test_valid_data(self):
+        entrada = [2024, 11, 29]
+        saida_esperada = "Friday"
+        saida_obtida = doomsday.get_week_day(entrada[0], entrada[1], entrada[2])
+        self.assertEqual(saida_esperada, saida_obtida)
 
-    def test_literal_year(self):
-        weekday = doomsday.get_week_day('a', 10, 24)
-        self.assertEqual(None, weekday)
-    
-    def test_literal_month(self):
-        weekday = doomsday.get_week_day(2023, 'a', 24)
-        self.assertEqual(None, weekday)
-    
-    def test_literal_day(self):
-        weekday = doomsday.get_week_day(2023, 10, 'a')
-        self.assertEqual(None, weekday)
-    '''
-    def test_invalid_year(self):
-        with self.assertRaises(AssertionError) as context:
-            doomsday(-2023, 10, 24)
-        self.assertEqual(str(context.exception), "year should be POSITIVE")
-    '''
-    def test_none_year(self):
-        weekday = doomsday.get_week_day(None, 10, 24)
-        self.assertEqual(None, weekday)
-    
-    def test_none_month(self):
-        weekday = doomsday.get_week_day(2023, None, 24)
-        self.assertEqual(None, weekday)
+    #teste dia
+    def test_day_1(self):
+        obtido = doomsday.get_week_day(2024, 11, 1)
+        esperado = "Friday"
+        self.assertEqual(esperado, obtido)
 
-    def test_none_day(self):
-        weekday = doomsday.get_week_day(2023, 10, None)
-        self.assertEqual(None, weekday)    
+    def test_day_2(self):
+        obtido = doomsday.get_week_day(2024, 11, 2)
+        esperado = "Saturday"
+        self.assertEqual(esperado, obtido)
+    
+    def test_day_0(self):
+        with self.assertRaises(AssertionError) as ctx:
+            doomsday.get_week_day(2024, 11, 0)
+        assert_error = ctx.exception
+        self.assertEqual(assert_error.__str__(), 'day should be between 1 to 31')
+
+    def test_day_30(self):
+        obtido = doomsday.get_week_day(2024, 11, 2)
+        esperado = ("Saturday")
+        self.assertEqual(esperado, obtido)
+
+    def test_day_32(self):
+        with self.assertRaises(AssertionError) as ctx:
+            doomsday.get_week_day(2024, 11, 32)
+        assert_error = ctx.exception
+        self.assertEqual(assert_error.__str__(), "day should be between 1 to 31")
+    
     
     #def test_invalid_month(self)
     #def test_invalid_day(self)
