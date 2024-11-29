@@ -35,6 +35,9 @@ def get_week_day(year: int, month: int, day: int) -> str:
     if(not (str(year).isnumeric() and str(month).isnumeric() and str(day).isnumeric())):
         return None
 
+    if(year is None or month is None or day is None):
+        return None
+
     assert len(str(year)) > 2, "year should be in YYYY format"
     assert year > 0, "year should be POSITIVE"
     assert 1 <= month <= 12, "month should be between 1 to 12"
